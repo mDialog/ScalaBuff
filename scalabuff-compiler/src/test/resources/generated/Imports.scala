@@ -60,16 +60,11 @@ object UsesImport {
 
 	val SIMPLE_TEST_FIELD_NUMBER = 1
 
-	def apply(message: Array[Byte]): UsesImport = defaultInstance.mergeFrom(message)
-	def apply(message: com.google.protobuf.ByteString): UsesImport = defaultInstance.mergeFrom(message)
+	def parse(message: Array[Byte]): UsesImport = defaultInstance.mergeFrom(message)
+	def parse(message: com.google.protobuf.ByteString): UsesImport = defaultInstance.mergeFrom(message)
 
 	def newBuilder = defaultInstance.newBuilderForType
 	def newBuilder(prototype: UsesImport) = defaultInstance.mergeFrom(prototype)
 
 }
 
-object Imports {
-	def registerAllExtensions(registry: com.google.protobuf.ExtensionRegistryLite) {
-	}
-
-}

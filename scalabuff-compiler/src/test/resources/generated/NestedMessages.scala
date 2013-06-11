@@ -56,8 +56,8 @@ object TopLevel {
 
 	val ID_TOPLEVEL_FIELD_NUMBER = 1
 
-	def apply(message: Array[Byte]): TopLevel = defaultInstance.mergeFrom(message)
-	def apply(message: com.google.protobuf.ByteString): TopLevel = defaultInstance.mergeFrom(message)
+	def parse(message: Array[Byte]): TopLevel = defaultInstance.mergeFrom(message)
+	def parse(message: com.google.protobuf.ByteString): TopLevel = defaultInstance.mergeFrom(message)
 
 	def newBuilder = defaultInstance.newBuilderForType
 	def newBuilder(prototype: TopLevel) = defaultInstance.mergeFrom(prototype)
@@ -117,8 +117,8 @@ object TopLevel {
 
 		val ID_INNER_FIELD_NUMBER = 1
 
-		def apply(message: Array[Byte]): Inner = defaultInstance.mergeFrom(message)
-		def apply(message: com.google.protobuf.ByteString): Inner = defaultInstance.mergeFrom(message)
+		def parse(message: Array[Byte]): Inner = defaultInstance.mergeFrom(message)
+		def parse(message: com.google.protobuf.ByteString): Inner = defaultInstance.mergeFrom(message)
 
 		def newBuilder = defaultInstance.newBuilderForType
 		def newBuilder(prototype: Inner) = defaultInstance.mergeFrom(prototype)
@@ -274,8 +274,8 @@ object Foobar {
 	val TOP_LEVEL_OPT_FIELD_NUMBER = 8
 	val TOP_LEVEL_INNER_REQ_FIELD_NUMBER = 9
 
-	def apply(message: Array[Byte]): Foobar = defaultInstance.mergeFrom(message)
-	def apply(message: com.google.protobuf.ByteString): Foobar = defaultInstance.mergeFrom(message)
+	def parse(message: Array[Byte]): Foobar = defaultInstance.mergeFrom(message)
+	def parse(message: com.google.protobuf.ByteString): Foobar = defaultInstance.mergeFrom(message)
 
 	def newBuilder = defaultInstance.newBuilderForType
 	def newBuilder(prototype: Foobar) = defaultInstance.mergeFrom(prototype)
@@ -337,8 +337,8 @@ object Foobar {
 
 		val ID_FIELD_NUMBER = 1
 
-		def apply(message: Array[Byte]): Foo = defaultInstance.mergeFrom(message)
-		def apply(message: com.google.protobuf.ByteString): Foo = defaultInstance.mergeFrom(message)
+		def parse(message: Array[Byte]): Foo = defaultInstance.mergeFrom(message)
+		def parse(message: com.google.protobuf.ByteString): Foo = defaultInstance.mergeFrom(message)
 
 		def newBuilder = defaultInstance.newBuilderForType
 		def newBuilder(prototype: Foo) = defaultInstance.mergeFrom(prototype)
@@ -401,8 +401,8 @@ object Foobar {
 
 		val ID_FIELD_NUMBER = 1
 
-		def apply(message: Array[Byte]): Bar = defaultInstance.mergeFrom(message)
-		def apply(message: com.google.protobuf.ByteString): Bar = defaultInstance.mergeFrom(message)
+		def parse(message: Array[Byte]): Bar = defaultInstance.mergeFrom(message)
+		def parse(message: com.google.protobuf.ByteString): Bar = defaultInstance.mergeFrom(message)
 
 		def newBuilder = defaultInstance.newBuilderForType
 		def newBuilder(prototype: Bar) = defaultInstance.mergeFrom(prototype)
@@ -465,8 +465,8 @@ object Foobar {
 
 		val ID_FIELD_NUMBER = 1
 
-		def apply(message: Array[Byte]): FooBar = defaultInstance.mergeFrom(message)
-		def apply(message: com.google.protobuf.ByteString): FooBar = defaultInstance.mergeFrom(message)
+		def parse(message: Array[Byte]): FooBar = defaultInstance.mergeFrom(message)
+		def parse(message: com.google.protobuf.ByteString): FooBar = defaultInstance.mergeFrom(message)
 
 		def newBuilder = defaultInstance.newBuilderForType
 		def newBuilder(prototype: FooBar) = defaultInstance.mergeFrom(prototype)
@@ -474,8 +474,3 @@ object Foobar {
 	}
 }
 
-object NestedMessages {
-	def registerAllExtensions(registry: com.google.protobuf.ExtensionRegistryLite) {
-	}
-
-}

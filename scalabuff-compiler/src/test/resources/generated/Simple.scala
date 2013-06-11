@@ -141,16 +141,11 @@ object SimpleTest {
 	val FLOATDEFAULT_FIELD_NUMBER = 8
 	val FLOATNEGATIVE_FIELD_NUMBER = 9
 
-	def apply(message: Array[Byte]): SimpleTest = defaultInstance.mergeFrom(message)
-	def apply(message: com.google.protobuf.ByteString): SimpleTest = defaultInstance.mergeFrom(message)
+	def parse(message: Array[Byte]): SimpleTest = defaultInstance.mergeFrom(message)
+	def parse(message: com.google.protobuf.ByteString): SimpleTest = defaultInstance.mergeFrom(message)
 
 	def newBuilder = defaultInstance.newBuilderForType
 	def newBuilder(prototype: SimpleTest) = defaultInstance.mergeFrom(prototype)
 
 }
 
-object Simple {
-	def registerAllExtensions(registry: com.google.protobuf.ExtensionRegistryLite) {
-	}
-
-}

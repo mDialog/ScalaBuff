@@ -346,8 +346,8 @@ class Generator protected (sourceName: String) {
 
       // apply
       out
-          .append(indent1).append("def apply(message: Array[Byte]): ").append(name).append(" = defaultInstance.mergeFrom(message)\n")
-          .append(indent1).append("def apply(message: com.google.protobuf.ByteString): ").append(name).append(" = defaultInstance.mergeFrom(message)\n")
+          .append(indent1).append("def parse(message: Array[Byte]): ").append(name).append(" = defaultInstance.mergeFrom(message)\n")
+          .append(indent1).append("def parse(message: com.google.protobuf.ByteString): ").append(name).append(" = defaultInstance.mergeFrom(message)\n")
 
       out.append("\n")
 
@@ -447,13 +447,6 @@ class Generator protected (sourceName: String) {
 
     // generated output
     output.append(generatedOutput).append("\n")
-
-    // outer object
-    output
-      .append("object ").append(className).append(" {\n")
-      .append("\tdef registerAllExtensions(registry: com.google.protobuf.ExtensionRegistryLite) {\n")
-      .append("\t}\n\n")
-      .append("}\n")
 
     ScalaClass(output.mkString, packageName.replace('.', File.separatorChar) + File.separatorChar, className)
   }

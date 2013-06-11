@@ -57,16 +57,11 @@ object ExtensionsTest {
 
 	val FOO_FIELD_NUMBER = 1
 
-	def apply(message: Array[Byte]): ExtensionsTest = defaultInstance.mergeFrom(message)
-	def apply(message: com.google.protobuf.ByteString): ExtensionsTest = defaultInstance.mergeFrom(message)
+	def parse(message: Array[Byte]): ExtensionsTest = defaultInstance.mergeFrom(message)
+	def parse(message: com.google.protobuf.ByteString): ExtensionsTest = defaultInstance.mergeFrom(message)
 
 	def newBuilder = defaultInstance.newBuilderForType
 	def newBuilder(prototype: ExtensionsTest) = defaultInstance.mergeFrom(prototype)
 
 }
 
-object Extensions {
-	def registerAllExtensions(registry: com.google.protobuf.ExtensionRegistryLite) {
-	}
-
-}

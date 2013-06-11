@@ -78,16 +78,11 @@ object SimpleRequest {
 	val PAGE_NUMBER_FIELD_NUMBER = 2
 	val RESULTS_PER_PAGE_FIELD_NUMBER = 3
 
-	def apply(message: Array[Byte]): SimpleRequest = defaultInstance.mergeFrom(message)
-	def apply(message: com.google.protobuf.ByteString): SimpleRequest = defaultInstance.mergeFrom(message)
+	def parse(message: Array[Byte]): SimpleRequest = defaultInstance.mergeFrom(message)
+	def parse(message: com.google.protobuf.ByteString): SimpleRequest = defaultInstance.mergeFrom(message)
 
 	def newBuilder = defaultInstance.newBuilderForType
 	def newBuilder(prototype: SimpleRequest) = defaultInstance.mergeFrom(prototype)
 
 }
 
-object SimpleWithComments {
-	def registerAllExtensions(registry: com.google.protobuf.ExtensionRegistryLite) {
-	}
-
-}

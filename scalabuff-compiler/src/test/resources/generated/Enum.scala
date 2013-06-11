@@ -100,8 +100,8 @@ object Outer {
 	val INNER_OPTIONAL_FIELD_NUMBER = 2
 	val INNER_REPEATED_FIELD_NUMBER = 3
 
-	def apply(message: Array[Byte]): Outer = defaultInstance.mergeFrom(message)
-	def apply(message: com.google.protobuf.ByteString): Outer = defaultInstance.mergeFrom(message)
+	def parse(message: Array[Byte]): Outer = defaultInstance.mergeFrom(message)
+	def parse(message: com.google.protobuf.ByteString): Outer = defaultInstance.mergeFrom(message)
 
 	def newBuilder = defaultInstance.newBuilderForType
 	def newBuilder(prototype: Outer) = defaultInstance.mergeFrom(prototype)
@@ -205,8 +205,8 @@ object OuterDuplicate {
 	val INNER_OPTIONAL_FIELD_NUMBER = 2
 	val INNER_REPEATED_FIELD_NUMBER = 3
 
-	def apply(message: Array[Byte]): OuterDuplicate = defaultInstance.mergeFrom(message)
-	def apply(message: com.google.protobuf.ByteString): OuterDuplicate = defaultInstance.mergeFrom(message)
+	def parse(message: Array[Byte]): OuterDuplicate = defaultInstance.mergeFrom(message)
+	def parse(message: com.google.protobuf.ByteString): OuterDuplicate = defaultInstance.mergeFrom(message)
 
 	def newBuilder = defaultInstance.newBuilderForType
 	def newBuilder(prototype: OuterDuplicate) = defaultInstance.mergeFrom(prototype)
@@ -287,8 +287,8 @@ object OuterEnumContainer {
 
 	val INNER_MESSAGE_FIELD_NUMBER = 1
 
-	def apply(message: Array[Byte]): OuterEnumContainer = defaultInstance.mergeFrom(message)
-	def apply(message: com.google.protobuf.ByteString): OuterEnumContainer = defaultInstance.mergeFrom(message)
+	def parse(message: Array[Byte]): OuterEnumContainer = defaultInstance.mergeFrom(message)
+	def parse(message: com.google.protobuf.ByteString): OuterEnumContainer = defaultInstance.mergeFrom(message)
 
 	def newBuilder = defaultInstance.newBuilderForType
 	def newBuilder(prototype: OuterEnumContainer) = defaultInstance.mergeFrom(prototype)
@@ -348,8 +348,8 @@ object OuterEnumContainer {
 
 		val SOME_ENUM_FIELD_NUMBER = 1
 
-		def apply(message: Array[Byte]): InnerEnumContainer = defaultInstance.mergeFrom(message)
-		def apply(message: com.google.protobuf.ByteString): InnerEnumContainer = defaultInstance.mergeFrom(message)
+		def parse(message: Array[Byte]): InnerEnumContainer = defaultInstance.mergeFrom(message)
+		def parse(message: com.google.protobuf.ByteString): InnerEnumContainer = defaultInstance.mergeFrom(message)
 
 		def newBuilder = defaultInstance.newBuilderForType
 		def newBuilder(prototype: InnerEnumContainer) = defaultInstance.mergeFrom(prototype)
@@ -380,8 +380,3 @@ object OuterEnumContainer {
 	}
 }
 
-object EnumTest {
-	def registerAllExtensions(registry: com.google.protobuf.ExtensionRegistryLite) {
-	}
-
-}

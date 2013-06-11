@@ -4,8 +4,3 @@
 package resources.generated
 
 
-object EmptyMessageTest {
-	def registerAllExtensions(registry: com.google.protobuf.ExtensionRegistryLite) {
-	}
-
-}

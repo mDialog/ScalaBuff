@@ -53,16 +53,11 @@ object EmptyMessage {
 	@reflect.BeanProperty val defaultInstance = new EmptyMessage()
 
 
-	def apply(message: Array[Byte]): EmptyMessage = defaultInstance.mergeFrom(message)
-	def apply(message: com.google.protobuf.ByteString): EmptyMessage = defaultInstance.mergeFrom(message)
+	def parse(message: Array[Byte]): EmptyMessage = defaultInstance.mergeFrom(message)
+	def parse(message: com.google.protobuf.ByteString): EmptyMessage = defaultInstance.mergeFrom(message)
 
 	def newBuilder = defaultInstance.newBuilderForType
 	def newBuilder(prototype: EmptyMessage) = defaultInstance.mergeFrom(prototype)
 
 }
 
-object ScalaBuffMessageTest {
-	def registerAllExtensions(registry: com.google.protobuf.ExtensionRegistryLite) {
-	}
-
-}

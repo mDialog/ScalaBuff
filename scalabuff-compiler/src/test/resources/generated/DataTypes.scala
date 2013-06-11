@@ -232,8 +232,8 @@ object DataTypes {
 	val F32BIT2_FIELD_NUMBER = 501
 	val F32BIT3_FIELD_NUMBER = 502
 
-	def apply(message: Array[Byte]): DataTypes = defaultInstance.mergeFrom(message)
-	def apply(message: com.google.protobuf.ByteString): DataTypes = defaultInstance.mergeFrom(message)
+	def parse(message: Array[Byte]): DataTypes = defaultInstance.mergeFrom(message)
+	def parse(message: com.google.protobuf.ByteString): DataTypes = defaultInstance.mergeFrom(message)
 
 	def newBuilder = defaultInstance.newBuilderForType
 	def newBuilder(prototype: DataTypes) = defaultInstance.mergeFrom(prototype)
@@ -260,8 +260,3 @@ object DataTypes {
 
 }
 
-object DataTypesTest {
-	def registerAllExtensions(registry: com.google.protobuf.ExtensionRegistryLite) {
-	}
-
-}
