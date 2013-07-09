@@ -61,6 +61,12 @@ final case class Response (
 object Response {
 	@reflect.BeanProperty val defaultInstance = new Response()
 
+	def parseFrom(data: Array[Byte]): Response = defaultInstance.mergeFrom(data)
+	def parseFrom(data: Array[Byte], offset: Int, length: Int): Response = defaultInstance.mergeFrom(data, offset, length)
+	def parseFrom(byteString: com.google.protobuf.ByteString): Response = defaultInstance.mergeFrom(byteString)
+	def parseFrom(stream: java.io.InputStream): Response = defaultInstance.mergeFrom(stream)
+	def parseDelimitedFrom(stream: java.io.InputStream): Option[Response] = defaultInstance.mergeDelimitedFromStream(stream)
+
 	val RESPONSE_FIELD_NUMBER = 1
 
 	def apply(message: Array[Byte]): Response = defaultInstance.mergeFrom(message)
@@ -77,8 +83,8 @@ object Response {
 		with com.google.protobuf.MessageLite.Builder
 		with net.sandrogrzicic.scalabuff.Message[Rendition] {
 
-		def setProfileKey(_f: String) = copy(`profileKey` = _f)
-		def setData(_f: String) = copy(`data` = _f)
+		def setProfileKey(_f: String) = copy(`profileKey` = Some(_f))
+		def setData(_f: String) = copy(`data` = Some(_f))
 		def setProperty(_i: Int, _v: Rendition.Property) = copy(`property` = `property`.updated(_i, _v))
 		def addProperty(_f: Rendition.Property) = copy(`property` = `property` :+ _f)
 		def addAllProperty(_f: Rendition.Property*) = copy(`property` = `property` ++ _f)
@@ -117,8 +123,8 @@ object Response {
 			)
 			while (true) in.readTag match {
 				case 0 => return __newMerged
-				case 10 => __profileKey = in.readString()
-				case 18 => __data = in.readString()
+				case 10 => __profileKey = Some(in.readString())
+				case 18 => __data = Some(in.readString())
 				case 26 => __property += readMessage[Rendition.Property](in, Rendition.Property.defaultInstance, _emptyRegistry)
 				case default => if (!in.skipField(default)) return __newMerged
 			}
@@ -144,6 +150,12 @@ object Response {
 
 	object Rendition {
 		@reflect.BeanProperty val defaultInstance = new Rendition()
+
+		def parseFrom(data: Array[Byte]): Rendition = defaultInstance.mergeFrom(data)
+		def parseFrom(data: Array[Byte], offset: Int, length: Int): Rendition = defaultInstance.mergeFrom(data, offset, length)
+		def parseFrom(byteString: com.google.protobuf.ByteString): Rendition = defaultInstance.mergeFrom(byteString)
+		def parseFrom(stream: java.io.InputStream): Rendition = defaultInstance.mergeFrom(stream)
+		def parseDelimitedFrom(stream: java.io.InputStream): Option[Rendition] = defaultInstance.mergeDelimitedFromStream(stream)
 
 		val PROFILE_KEY_FIELD_NUMBER = 1
 		val DATA_FIELD_NUMBER = 2
@@ -215,6 +227,12 @@ object Response {
 		object Property {
 			@reflect.BeanProperty val defaultInstance = new Property()
 
+			def parseFrom(data: Array[Byte]): Property = defaultInstance.mergeFrom(data)
+			def parseFrom(data: Array[Byte], offset: Int, length: Int): Property = defaultInstance.mergeFrom(data, offset, length)
+			def parseFrom(byteString: com.google.protobuf.ByteString): Property = defaultInstance.mergeFrom(byteString)
+			def parseFrom(stream: java.io.InputStream): Property = defaultInstance.mergeFrom(stream)
+			def parseDelimitedFrom(stream: java.io.InputStream): Option[Property] = defaultInstance.mergeDelimitedFromStream(stream)
+
 			val KEY_FIELD_NUMBER = 1
 			val VALUE_FIELD_NUMBER = 2
 
@@ -261,9 +279,9 @@ object Response {
 		with com.google.protobuf.MessageLite.Builder
 		with net.sandrogrzicic.scalabuff.Message[Video] {
 
-		def setIdentifier(_f: String) = copy(`identifier` = _f)
-		def setAssetKey(_f: String) = copy(`assetKey` = _f)
-		def setDuration(_f: Float) = copy(`duration` = _f)
+		def setIdentifier(_f: String) = copy(`identifier` = Some(_f))
+		def setAssetKey(_f: String) = copy(`assetKey` = Some(_f))
+		def setDuration(_f: Float) = copy(`duration` = Some(_f))
 		def setRenditions(_i: Int, _v: Rendition) = copy(`renditions` = `renditions`.updated(_i, _v))
 		def addRenditions(_f: Rendition) = copy(`renditions` = `renditions` :+ _f)
 		def addAllRenditions(_f: Rendition*) = copy(`renditions` = `renditions` ++ _f)
@@ -307,9 +325,9 @@ object Response {
 			)
 			while (true) in.readTag match {
 				case 0 => return __newMerged
-				case 10 => __identifier = in.readString()
-				case 18 => __assetKey = in.readString()
-				case 29 => __duration = in.readFloat()
+				case 10 => __identifier = Some(in.readString())
+				case 18 => __assetKey = Some(in.readString())
+				case 29 => __duration = Some(in.readFloat())
 				case 34 => __renditions += readMessage[Rendition](in, Rendition.defaultInstance, _emptyRegistry)
 				case default => if (!in.skipField(default)) return __newMerged
 			}
@@ -337,6 +355,12 @@ object Response {
 	object Video {
 		@reflect.BeanProperty val defaultInstance = new Video()
 
+		def parseFrom(data: Array[Byte]): Video = defaultInstance.mergeFrom(data)
+		def parseFrom(data: Array[Byte], offset: Int, length: Int): Video = defaultInstance.mergeFrom(data, offset, length)
+		def parseFrom(byteString: com.google.protobuf.ByteString): Video = defaultInstance.mergeFrom(byteString)
+		def parseFrom(stream: java.io.InputStream): Video = defaultInstance.mergeFrom(stream)
+		def parseDelimitedFrom(stream: java.io.InputStream): Option[Video] = defaultInstance.mergeDelimitedFromStream(stream)
+
 		val IDENTIFIER_FIELD_NUMBER = 1
 		val ASSET_KEY_FIELD_NUMBER = 2
 		val DURATION_FIELD_NUMBER = 3
@@ -357,12 +381,12 @@ object Response {
 		with com.google.protobuf.MessageLite.Builder
 		with net.sandrogrzicic.scalabuff.Message[VideoFailure] {
 
-		def setAssetKey(_f: String) = copy(`assetKey` = _f)
+		def setAssetKey(_f: String) = copy(`assetKey` = Some(_f))
 		def setReason(_i: Int, _v: String) = copy(`reason` = `reason`.updated(_i, _v))
 		def addReason(_f: String) = copy(`reason` = `reason` :+ _f)
 		def addAllReason(_f: String*) = copy(`reason` = `reason` ++ _f)
 		def addAllReason(_f: TraversableOnce[String]) = copy(`reason` = `reason` ++ _f)
-		def setCause(_f: VideoFailure.Cause.EnumVal) = copy(`cause` = _f)
+		def setCause(_f: VideoFailure.Cause.EnumVal) = copy(`cause` = Some(_f))
 
 		def clearAssetKey = copy(`assetKey` = None)
 		def clearReason = copy(`reason` = Vector.empty[String])
@@ -397,9 +421,9 @@ object Response {
 			)
 			while (true) in.readTag match {
 				case 0 => return __newMerged
-				case 10 => __assetKey = in.readString()
+				case 10 => __assetKey = Some(in.readString())
 				case 18 => __reason += in.readString()
-				case 24 => __cause = VideoFailure.Cause.valueOf(in.readEnum())
+				case 24 => __cause = Some(VideoFailure.Cause.valueOf(in.readEnum()))
 				case default => if (!in.skipField(default)) return __newMerged
 			}
 			null
@@ -424,6 +448,12 @@ object Response {
 
 	object VideoFailure {
 		@reflect.BeanProperty val defaultInstance = new VideoFailure()
+
+		def parseFrom(data: Array[Byte]): VideoFailure = defaultInstance.mergeFrom(data)
+		def parseFrom(data: Array[Byte], offset: Int, length: Int): VideoFailure = defaultInstance.mergeFrom(data, offset, length)
+		def parseFrom(byteString: com.google.protobuf.ByteString): VideoFailure = defaultInstance.mergeFrom(byteString)
+		def parseFrom(stream: java.io.InputStream): VideoFailure = defaultInstance.mergeFrom(stream)
+		def parseDelimitedFrom(stream: java.io.InputStream): Option[VideoFailure] = defaultInstance.mergeDelimitedFromStream(stream)
 
 		val ASSET_KEY_FIELD_NUMBER = 1
 		val REASON_FIELD_NUMBER = 2
@@ -472,8 +502,8 @@ object Response {
 		with com.google.protobuf.MessageLite.Builder
 		with net.sandrogrzicic.scalabuff.Message[VideoResult] {
 
-		def setSuccess(_f: Video) = copy(`success` = _f)
-		def setFailure(_f: VideoFailure) = copy(`failure` = _f)
+		def setSuccess(_f: Video) = copy(`success` = Some(_f))
+		def setFailure(_f: VideoFailure) = copy(`failure` = Some(_f))
 
 		def clearSuccess = copy(`success` = None)
 		def clearFailure = copy(`failure` = None)
@@ -503,14 +533,14 @@ object Response {
 			)
 			while (true) in.readTag match {
 				case 0 => return __newMerged
-				case 10 => __success = readMessage[Video](in, __success.orElse({
+				case 10 => __success = Some(readMessage[Video](in, __success.orElse({
 					__success = Video.defaultInstance
 					__success
-				}).get, _emptyRegistry)
-				case 18 => __failure = readMessage[VideoFailure](in, __failure.orElse({
+				}).get, _emptyRegistry))
+				case 18 => __failure = Some(readMessage[VideoFailure](in, __failure.orElse({
 					__failure = VideoFailure.defaultInstance
 					__failure
-				}).get, _emptyRegistry)
+				}).get, _emptyRegistry))
 				case default => if (!in.skipField(default)) return __newMerged
 			}
 			null
@@ -534,6 +564,12 @@ object Response {
 
 	object VideoResult {
 		@reflect.BeanProperty val defaultInstance = new VideoResult()
+
+		def parseFrom(data: Array[Byte]): VideoResult = defaultInstance.mergeFrom(data)
+		def parseFrom(data: Array[Byte], offset: Int, length: Int): VideoResult = defaultInstance.mergeFrom(data, offset, length)
+		def parseFrom(byteString: com.google.protobuf.ByteString): VideoResult = defaultInstance.mergeFrom(byteString)
+		def parseFrom(stream: java.io.InputStream): VideoResult = defaultInstance.mergeFrom(stream)
+		def parseDelimitedFrom(stream: java.io.InputStream): Option[VideoResult] = defaultInstance.mergeDelimitedFromStream(stream)
 
 		val SUCCESS_FIELD_NUMBER = 1
 		val FAILURE_FIELD_NUMBER = 2

@@ -14,8 +14,8 @@ final case class ComplexMessage (
 	with com.google.protobuf.MessageLite.Builder
 	with net.sandrogrzicic.scalabuff.Message[ComplexMessage] {
 
-	def setSecondField(_f: String) = copy(`secondField` = _f)
-	def setNestedOuterField(_f: ComplexMessage.Nested) = copy(`nestedOuterField` = _f)
+	def setSecondField(_f: String) = copy(`secondField` = Some(_f))
+	def setNestedOuterField(_f: ComplexMessage.Nested) = copy(`nestedOuterField` = Some(_f))
 	def setSimpleEnumField(_i: Int, _v: ComplexMessage.SimpleEnum.EnumVal) = copy(`simpleEnumField` = `simpleEnumField`.updated(_i, _v))
 	def addSimpleEnumField(_f: ComplexMessage.SimpleEnum.EnumVal) = copy(`simpleEnumField` = `simpleEnumField` :+ _f)
 	def addAllSimpleEnumField(_f: ComplexMessage.SimpleEnum.EnumVal*) = copy(`simpleEnumField` = `simpleEnumField` ++ _f)
@@ -77,11 +77,11 @@ final case class ComplexMessage (
 		while (true) in.readTag match {
 			case 0 => return __newMerged
 			case 10 => __firstField = in.readBytes()
-			case 18 => __secondField = in.readString()
-			case 26 => __nestedOuterField = readMessage[ComplexMessage.Nested](in, __nestedOuterField.orElse({
+			case 18 => __secondField = Some(in.readString())
+			case 26 => __nestedOuterField = Some(readMessage[ComplexMessage.Nested](in, __nestedOuterField.orElse({
 				__nestedOuterField = ComplexMessage.Nested.defaultInstance
 				__nestedOuterField
-			}).get, _emptyRegistry)
+			}).get, _emptyRegistry))
 			case 32 => __simpleEnumField += ComplexMessage.SimpleEnum.valueOf(in.readEnum())
 			case 42 => __repeatedStringField += in.readString()
 			case 50 => __repeatedBytesField += in.readBytes()
@@ -112,6 +112,12 @@ final case class ComplexMessage (
 
 object ComplexMessage {
 	@reflect.BeanProperty val defaultInstance = new ComplexMessage()
+
+	def parseFrom(data: Array[Byte]): ComplexMessage = defaultInstance.mergeFrom(data)
+	def parseFrom(data: Array[Byte], offset: Int, length: Int): ComplexMessage = defaultInstance.mergeFrom(data, offset, length)
+	def parseFrom(byteString: com.google.protobuf.ByteString): ComplexMessage = defaultInstance.mergeFrom(byteString)
+	def parseFrom(stream: java.io.InputStream): ComplexMessage = defaultInstance.mergeFrom(stream)
+	def parseDelimitedFrom(stream: java.io.InputStream): Option[ComplexMessage] = defaultInstance.mergeDelimitedFromStream(stream)
 
 	val FIRST_FIELD_FIELD_NUMBER = 1
 	val SECOND_FIELD_FIELD_NUMBER = 2
@@ -150,7 +156,7 @@ object ComplexMessage {
 		with com.google.protobuf.MessageLite.Builder
 		with net.sandrogrzicic.scalabuff.Message[Nested] {
 
-		def setNestedEnum(_f: SimpleEnum.EnumVal) = copy(`nestedEnum` = _f)
+		def setNestedEnum(_f: SimpleEnum.EnumVal) = copy(`nestedEnum` = Some(_f))
 
 		def clearNestedEnum = copy(`nestedEnum` = None)
 
@@ -180,7 +186,7 @@ object ComplexMessage {
 			while (true) in.readTag match {
 				case 0 => return __newMerged
 				case 10 => __nestedField = in.readString()
-				case 16 => __nestedEnum = SimpleEnum.valueOf(in.readEnum())
+				case 16 => __nestedEnum = Some(SimpleEnum.valueOf(in.readEnum()))
 				case default => if (!in.skipField(default)) return __newMerged
 			}
 			null
@@ -204,6 +210,12 @@ object ComplexMessage {
 
 	object Nested {
 		@reflect.BeanProperty val defaultInstance = new Nested()
+
+		def parseFrom(data: Array[Byte]): Nested = defaultInstance.mergeFrom(data)
+		def parseFrom(data: Array[Byte], offset: Int, length: Int): Nested = defaultInstance.mergeFrom(data, offset, length)
+		def parseFrom(byteString: com.google.protobuf.ByteString): Nested = defaultInstance.mergeFrom(byteString)
+		def parseFrom(stream: java.io.InputStream): Nested = defaultInstance.mergeFrom(stream)
+		def parseDelimitedFrom(stream: java.io.InputStream): Option[Nested] = defaultInstance.mergeDelimitedFromStream(stream)
 
 		val NESTED_FIELD_FIELD_NUMBER = 1
 		val NESTED_ENUM_FIELD_NUMBER = 2
@@ -275,6 +287,12 @@ final case class AnotherMessage (
 
 object AnotherMessage {
 	@reflect.BeanProperty val defaultInstance = new AnotherMessage()
+
+	def parseFrom(data: Array[Byte]): AnotherMessage = defaultInstance.mergeFrom(data)
+	def parseFrom(data: Array[Byte], offset: Int, length: Int): AnotherMessage = defaultInstance.mergeFrom(data, offset, length)
+	def parseFrom(byteString: com.google.protobuf.ByteString): AnotherMessage = defaultInstance.mergeFrom(byteString)
+	def parseFrom(stream: java.io.InputStream): AnotherMessage = defaultInstance.mergeFrom(stream)
+	def parseDelimitedFrom(stream: java.io.InputStream): Option[AnotherMessage] = defaultInstance.mergeDelimitedFromStream(stream)
 
 	val FIELD_NESTED_FIELD_NUMBER = 1
 	val FIELD_ENUM_FIELD_NUMBER = 2

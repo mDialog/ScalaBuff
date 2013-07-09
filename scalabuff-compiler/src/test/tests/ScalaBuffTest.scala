@@ -37,21 +37,21 @@ class ScalaBuffTest extends FunSuite with ShouldMatchers {
 
 
 	test("apply: simple .proto file") {
-		val scalaClass: ScalaClass = ScalaBuff(protoDir + testProto + ".proto")
+		val scalaClass: ScalaClass = ScalaBuff(new File(protoDir + testProto + ".proto"))
 		scalaClass.body should equal (testProtoGenerated)
 		scalaClass.file should equal ("Simple")
 		scalaClass.path should equal ("resources" + SEP + "generated" + SEP)
 	}
 
-	test("main: no arguments") {
+	test("run: no arguments") {
 		outputStream.reset()
 		Console.withOut(printStream)({
-			ScalaBuff.main(Array())
+			ScalaBuff.run(Array())
 			outputStream.toString("utf-8") should equal (Strings.HELP + NEWLINE)
 		})
 	}
 
-	test("main: simple .proto file without a specified output directory") {
+	test("run: simple .proto file without a specified output directory") {
 		val resourcesDirectory = new File("scalabuff-compiler" + SEP + "resources")
 		val resourcesGeneratedDirectory = new File("scalabuff-compiler" + SEP + "resources" + SEP + "generated")
 		// don't attempt to modify an existing root folder
@@ -61,7 +61,7 @@ class ScalaBuffTest extends FunSuite with ShouldMatchers {
 			outputStream.reset()
 			val simpleProto = protoDir + testProto + ".proto"
 			Console.withOut(printStream)({
-				ScalaBuff.main(Array(simpleProto))
+				ScalaBuff.run(Array(simpleProto))
 				outputStream.toString("utf-8") should be ('empty)
 			})
 			val outputFile = new File("resources" + SEP + "generated" + SEP + testProto.camelCase + ".scala")
@@ -76,13 +76,13 @@ class ScalaBuffTest extends FunSuite with ShouldMatchers {
 		}
 	}
 
-	test("main: simple .proto file with a specified output directory") {
+	test("run: simple .proto file with a specified output directory") {
 		val outputDirectory = "scalabuff-compiler" + SEP + "src" + SEP + "test"
 
 		outputStream.reset()
 		val simpleProto = protoDir + testProto + ".proto"
 		Console.withOut(printStream)({
-			ScalaBuff.main(Array("--scala_out=" + outputDirectory, simpleProto))
+			ScalaBuff.run(Array("--scala_out=" + outputDirectory, simpleProto))
 			outputStream.toString("utf-8") should be ('empty)
 		})
 		val outputFile = new File(outputDirectory + "" + SEP + "resources" + SEP + "generated" + SEP + testProto.camelCase + ".scala")
@@ -92,13 +92,13 @@ class ScalaBuffTest extends FunSuite with ShouldMatchers {
 		outputFileSource.close()
 	}
 
-	test("main: input directory only") {
+	test("run: input directory only") {
 		val outputDirectory = "scalabuff-compiler" + SEP + "src" + SEP + "test"
 		val protoFiles = Seq("multi_one", "multi_two")
 
 		outputStream.reset()
 		Console.withOut(printStream)({
-			ScalaBuff.main(Array("--scala_out=" + outputDirectory, "--proto_path=" + multiProtoDir, "--verbose"))
+			ScalaBuff.run(Array("--scala_out=" + outputDirectory, "--proto_path=" + multiProtoDir, "--verbose"))
 			outputStream.toString("utf-8").split("\n").size should be (2)
 		})
 
@@ -113,12 +113,12 @@ class ScalaBuffTest extends FunSuite with ShouldMatchers {
 		}
 	}
 
-	test("main: multiple input directories, with file") {
+	test("run: multiple input directories, with file") {
 		val outputDirectory = "scalabuff-compiler" + SEP + "src" + SEP + "test"
 
 		outputStream.reset()
 		Console.withOut(printStream)({
-			ScalaBuff.main(Array("--scala_out=" + outputDirectory, 
+			ScalaBuff.run(Array("--scala_out=" + outputDirectory,
 				"--proto_path=" + parsedDir, // There's no proto files here, but we want to make sure multi_one.proto is found
 				"--proto_path=" + multiProtoDir, 
 				"--verbose",
@@ -135,21 +135,49 @@ class ScalaBuffTest extends FunSuite with ShouldMatchers {
 		outputFileSource.close()
 	}
 
-	test("main: unknown option") {
+	test("run: import across packages") {
+		val outputDirectory = "scalabuff-compiler" + SEP + "src" + SEP + "test"
+
+		def compile(filename: String, subFolder: Option[String]) {
+			val protoFile = filename + ".proto"
+			val scalaFile = filename.camelCase + ".scala"
+			outputStream.reset()
+			Console.withOut(printStream)({
+				ScalaBuff.run(Array("--scala_out=" + outputDirectory,
+					"--proto_path=" + protoDir, 
+					"--verbose",
+					protoFile))
+				outputStream.toString("utf-8").split("\n").size should be (1)
+			})
+
+			val outputFile = new File(outputDirectory + "" + SEP + "resources" + SEP + "generated" + SEP + subFolder.map(_ + SEP).getOrElse("") + scalaFile)
+			outputFile should be ('exists)
+			val outputFileSource = io.Source.fromFile(outputFile)
+			val exampleProtoGenerated =
+				io.Source.fromFile(new File(generatedDir + subFolder.map(_ + SEP).getOrElse("") + scalaFile)).mkString
+			outputFileSource.mkString should equal (exampleProtoGenerated)
+			outputFileSource.close()
+		}
+
+		compile("package_name", Some("nested"))
+		compile("import_packages", None)
+	}
+
+	test("run: unknown option") {
 		outputStream.reset()
 		Console.withOut(printStream)({
 			val unsupportedOption = "--unsupported-option"
-			ScalaBuff.main(Array(unsupportedOption))
+			ScalaBuff.run(Array(unsupportedOption))
 			outputStream.toString("utf-8") should be
 				(Strings.UNKNOWN_ARGUMENT + unsupportedOption + NEWLINE)
 		})
 	}
 
-	test("main: invalid output directory") {
+	test("run: invalid output directory") {
 		outputStream.reset()
 		Console.withOut(printStream)({
 			val invalidOutputDirectory = "()/%$#:;"
-			ScalaBuff.main(Array("--scala_out=" + invalidOutputDirectory))
+			ScalaBuff.run(Array("--scala_out=" + invalidOutputDirectory))
 			outputStream.toString("utf-8") should be
 				(Strings.INVALID_OUTPUT_DIRECTORY + invalidOutputDirectory + NEWLINE)
 		})

@@ -17,17 +17,17 @@ final case class SimpleTest (
 	with com.google.protobuf.MessageLite.Builder
 	with net.sandrogrzicic.scalabuff.Message[SimpleTest] {
 
-	def setOptionalField(_f: Float) = copy(`optionalField` = _f)
+	def setOptionalField(_f: Float) = copy(`optionalField` = Some(_f))
 	def setRepeatedField(_i: Int, _v: String) = copy(`repeatedField` = `repeatedField`.updated(_i, _v))
 	def addRepeatedField(_f: String) = copy(`repeatedField` = `repeatedField` :+ _f)
 	def addAllRepeatedField(_f: String*) = copy(`repeatedField` = `repeatedField` ++ _f)
 	def addAllRepeatedField(_f: TraversableOnce[String]) = copy(`repeatedField` = `repeatedField` ++ _f)
-	def setType(_f: Int) = copy(`type` = _f)
-	def setInt32Default(_f: Int) = copy(`int32Default` = _f)
-	def setInt32Negative(_f: Int) = copy(`int32Negative` = _f)
-	def setStringDefault(_f: String) = copy(`stringDefault` = _f)
-	def setFloatDefault(_f: Float) = copy(`floatDefault` = _f)
-	def setFloatNegative(_f: Float) = copy(`floatNegative` = _f)
+	def setType(_f: Int) = copy(`type` = Some(_f))
+	def setInt32Default(_f: Int) = copy(`int32Default` = Some(_f))
+	def setInt32Negative(_f: Int) = copy(`int32Negative` = Some(_f))
+	def setStringDefault(_f: String) = copy(`stringDefault` = Some(_f))
+	def setFloatDefault(_f: Float) = copy(`floatDefault` = Some(_f))
+	def setFloatNegative(_f: Float) = copy(`floatNegative` = Some(_f))
 
 	def clearOptionalField = copy(`optionalField` = None)
 	def clearRepeatedField = copy(`repeatedField` = Vector.empty[String])
@@ -92,14 +92,14 @@ final case class SimpleTest (
 		while (true) in.readTag match {
 			case 0 => return __newMerged
 			case 8 => __requiredField = in.readInt32()
-			case 21 => __optionalField = in.readFloat()
+			case 21 => __optionalField = Some(in.readFloat())
 			case 26 => __repeatedField += in.readString()
-			case 32 => __type = in.readInt32()
-			case 40 => __int32Default = in.readInt32()
-			case 48 => __int32Negative = in.readInt32()
-			case 58 => __stringDefault = in.readString()
-			case 69 => __floatDefault = in.readFloat()
-			case 77 => __floatNegative = in.readFloat()
+			case 32 => __type = Some(in.readInt32())
+			case 40 => __int32Default = Some(in.readInt32())
+			case 48 => __int32Negative = Some(in.readInt32())
+			case 58 => __stringDefault = Some(in.readString())
+			case 69 => __floatDefault = Some(in.readFloat())
+			case 77 => __floatNegative = Some(in.readFloat())
 			case default => if (!in.skipField(default)) return __newMerged
 		}
 		null
@@ -130,6 +130,12 @@ final case class SimpleTest (
 
 object SimpleTest {
 	@reflect.BeanProperty val defaultInstance = new SimpleTest()
+
+	def parseFrom(data: Array[Byte]): SimpleTest = defaultInstance.mergeFrom(data)
+	def parseFrom(data: Array[Byte], offset: Int, length: Int): SimpleTest = defaultInstance.mergeFrom(data, offset, length)
+	def parseFrom(byteString: com.google.protobuf.ByteString): SimpleTest = defaultInstance.mergeFrom(byteString)
+	def parseFrom(stream: java.io.InputStream): SimpleTest = defaultInstance.mergeFrom(stream)
+	def parseDelimitedFrom(stream: java.io.InputStream): Option[SimpleTest] = defaultInstance.mergeDelimitedFromStream(stream)
 
 	val REQUIRED_FIELD_FIELD_NUMBER = 1
 	val OPTIONAL_FIELD_FIELD_NUMBER = 2

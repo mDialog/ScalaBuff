@@ -10,8 +10,8 @@ final case class NumbersTest1 (
 	with com.google.protobuf.MessageLite.Builder
 	with net.sandrogrzicic.scalabuff.Message[NumbersTest1] {
 
-	def setSomeHexNumber(_f: Int) = copy(`someHexNumber` = _f)
-	def setSomeOctNumber(_f: Int) = copy(`someOctNumber` = _f)
+	def setSomeHexNumber(_f: Int) = copy(`someHexNumber` = Some(_f))
+	def setSomeOctNumber(_f: Int) = copy(`someOctNumber` = Some(_f))
 
 	def clearSomeHexNumber = copy(`someHexNumber` = None)
 	def clearSomeOctNumber = copy(`someOctNumber` = None)
@@ -41,8 +41,8 @@ final case class NumbersTest1 (
 		)
 		while (true) in.readTag match {
 			case 0 => return __newMerged
-			case 8 => __someHexNumber = in.readInt32()
-			case 16 => __someOctNumber = in.readInt32()
+			case 8 => __someHexNumber = Some(in.readInt32())
+			case 16 => __someOctNumber = Some(in.readInt32())
 			case default => if (!in.skipField(default)) return __newMerged
 		}
 		null
@@ -66,6 +66,12 @@ final case class NumbersTest1 (
 
 object NumbersTest1 {
 	@reflect.BeanProperty val defaultInstance = new NumbersTest1()
+
+	def parseFrom(data: Array[Byte]): NumbersTest1 = defaultInstance.mergeFrom(data)
+	def parseFrom(data: Array[Byte], offset: Int, length: Int): NumbersTest1 = defaultInstance.mergeFrom(data, offset, length)
+	def parseFrom(byteString: com.google.protobuf.ByteString): NumbersTest1 = defaultInstance.mergeFrom(byteString)
+	def parseFrom(stream: java.io.InputStream): NumbersTest1 = defaultInstance.mergeFrom(stream)
+	def parseDelimitedFrom(stream: java.io.InputStream): Option[NumbersTest1] = defaultInstance.mergeDelimitedFromStream(stream)
 
 	val SOME_HEX_NUMBER_FIELD_NUMBER = 1
 	val SOME_OCT_NUMBER_FIELD_NUMBER = 2
