@@ -30,7 +30,7 @@ final case class Outer (
 	with com.google.protobuf.MessageLite.Builder
 	with net.sandrogrzicic.scalabuff.Message[Outer] {
 
-	def setInnerOptional(_f: Outer.Inner.EnumVal) = copy(`innerOptional` = _f)
+	def setInnerOptional(_f: Outer.Inner.EnumVal) = copy(`innerOptional` = Some(_f))
 	def setInnerRepeated(_i: Int, _v: Outer.Inner.EnumVal) = copy(`innerRepeated` = `innerRepeated`.updated(_i, _v))
 	def addInnerRepeated(_f: Outer.Inner.EnumVal) = copy(`innerRepeated` = `innerRepeated` :+ _f)
 	def addAllInnerRepeated(_f: Outer.Inner.EnumVal*) = copy(`innerRepeated` = `innerRepeated` ++ _f)
@@ -69,7 +69,7 @@ final case class Outer (
 		while (true) in.readTag match {
 			case 0 => return __newMerged
 			case 8 => __innerRequired = Outer.Inner.valueOf(in.readEnum())
-			case 16 => __innerOptional = Outer.Inner.valueOf(in.readEnum())
+			case 16 => __innerOptional = Some(Outer.Inner.valueOf(in.readEnum()))
 			case 24 => __innerRepeated += Outer.Inner.valueOf(in.readEnum())
 			case default => if (!in.skipField(default)) return __newMerged
 		}
@@ -95,6 +95,12 @@ final case class Outer (
 
 object Outer {
 	@reflect.BeanProperty val defaultInstance = new Outer()
+
+	def parseFrom(data: Array[Byte]): Outer = defaultInstance.mergeFrom(data)
+	def parseFrom(data: Array[Byte], offset: Int, length: Int): Outer = defaultInstance.mergeFrom(data, offset, length)
+	def parseFrom(byteString: com.google.protobuf.ByteString): Outer = defaultInstance.mergeFrom(byteString)
+	def parseFrom(stream: java.io.InputStream): Outer = defaultInstance.mergeFrom(stream)
+	def parseDelimitedFrom(stream: java.io.InputStream): Option[Outer] = defaultInstance.mergeDelimitedFromStream(stream)
 
 	val INNER_REQUIRED_FIELD_NUMBER = 1
 	val INNER_OPTIONAL_FIELD_NUMBER = 2
@@ -135,7 +141,7 @@ final case class OuterDuplicate (
 	with com.google.protobuf.MessageLite.Builder
 	with net.sandrogrzicic.scalabuff.Message[OuterDuplicate] {
 
-	def setInnerOptional(_f: OuterDuplicate.Inner.EnumVal) = copy(`innerOptional` = _f)
+	def setInnerOptional(_f: OuterDuplicate.Inner.EnumVal) = copy(`innerOptional` = Some(_f))
 	def setInnerRepeated(_i: Int, _v: OuterDuplicate.Inner.EnumVal) = copy(`innerRepeated` = `innerRepeated`.updated(_i, _v))
 	def addInnerRepeated(_f: OuterDuplicate.Inner.EnumVal) = copy(`innerRepeated` = `innerRepeated` :+ _f)
 	def addAllInnerRepeated(_f: OuterDuplicate.Inner.EnumVal*) = copy(`innerRepeated` = `innerRepeated` ++ _f)
@@ -174,7 +180,7 @@ final case class OuterDuplicate (
 		while (true) in.readTag match {
 			case 0 => return __newMerged
 			case 8 => __innerRequired = OuterDuplicate.Inner.valueOf(in.readEnum())
-			case 16 => __innerOptional = OuterDuplicate.Inner.valueOf(in.readEnum())
+			case 16 => __innerOptional = Some(OuterDuplicate.Inner.valueOf(in.readEnum()))
 			case 24 => __innerRepeated += OuterDuplicate.Inner.valueOf(in.readEnum())
 			case default => if (!in.skipField(default)) return __newMerged
 		}
@@ -200,6 +206,12 @@ final case class OuterDuplicate (
 
 object OuterDuplicate {
 	@reflect.BeanProperty val defaultInstance = new OuterDuplicate()
+
+	def parseFrom(data: Array[Byte]): OuterDuplicate = defaultInstance.mergeFrom(data)
+	def parseFrom(data: Array[Byte], offset: Int, length: Int): OuterDuplicate = defaultInstance.mergeFrom(data, offset, length)
+	def parseFrom(byteString: com.google.protobuf.ByteString): OuterDuplicate = defaultInstance.mergeFrom(byteString)
+	def parseFrom(stream: java.io.InputStream): OuterDuplicate = defaultInstance.mergeFrom(stream)
+	def parseDelimitedFrom(stream: java.io.InputStream): Option[OuterDuplicate] = defaultInstance.mergeDelimitedFromStream(stream)
 
 	val INNER_REQUIRED_FIELD_NUMBER = 1
 	val INNER_OPTIONAL_FIELD_NUMBER = 2
@@ -285,6 +297,12 @@ final case class OuterEnumContainer (
 object OuterEnumContainer {
 	@reflect.BeanProperty val defaultInstance = new OuterEnumContainer()
 
+	def parseFrom(data: Array[Byte]): OuterEnumContainer = defaultInstance.mergeFrom(data)
+	def parseFrom(data: Array[Byte], offset: Int, length: Int): OuterEnumContainer = defaultInstance.mergeFrom(data, offset, length)
+	def parseFrom(byteString: com.google.protobuf.ByteString): OuterEnumContainer = defaultInstance.mergeFrom(byteString)
+	def parseFrom(stream: java.io.InputStream): OuterEnumContainer = defaultInstance.mergeFrom(stream)
+	def parseDelimitedFrom(stream: java.io.InputStream): Option[OuterEnumContainer] = defaultInstance.mergeDelimitedFromStream(stream)
+
 	val INNER_MESSAGE_FIELD_NUMBER = 1
 
 	def parse(message: Array[Byte]): OuterEnumContainer = defaultInstance.mergeFrom(message)
@@ -345,6 +363,12 @@ object OuterEnumContainer {
 
 	object InnerEnumContainer {
 		@reflect.BeanProperty val defaultInstance = new InnerEnumContainer()
+
+		def parseFrom(data: Array[Byte]): InnerEnumContainer = defaultInstance.mergeFrom(data)
+		def parseFrom(data: Array[Byte], offset: Int, length: Int): InnerEnumContainer = defaultInstance.mergeFrom(data, offset, length)
+		def parseFrom(byteString: com.google.protobuf.ByteString): InnerEnumContainer = defaultInstance.mergeFrom(byteString)
+		def parseFrom(stream: java.io.InputStream): InnerEnumContainer = defaultInstance.mergeFrom(stream)
+		def parseDelimitedFrom(stream: java.io.InputStream): Option[InnerEnumContainer] = defaultInstance.mergeDelimitedFromStream(stream)
 
 		val SOME_ENUM_FIELD_NUMBER = 1
 

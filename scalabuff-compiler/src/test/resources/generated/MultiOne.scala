@@ -52,6 +52,12 @@ final case class MutiMessageOne (
 object MutiMessageOne {
 	@reflect.BeanProperty val defaultInstance = new MutiMessageOne()
 
+	def parseFrom(data: Array[Byte]): MutiMessageOne = defaultInstance.mergeFrom(data)
+	def parseFrom(data: Array[Byte], offset: Int, length: Int): MutiMessageOne = defaultInstance.mergeFrom(data, offset, length)
+	def parseFrom(byteString: com.google.protobuf.ByteString): MutiMessageOne = defaultInstance.mergeFrom(byteString)
+	def parseFrom(stream: java.io.InputStream): MutiMessageOne = defaultInstance.mergeFrom(stream)
+	def parseDelimitedFrom(stream: java.io.InputStream): Option[MutiMessageOne] = defaultInstance.mergeDelimitedFromStream(stream)
+
 
 	def apply(message: Array[Byte]): MutiMessageOne = defaultInstance.mergeFrom(message)
 	def apply(message: com.google.protobuf.ByteString): MutiMessageOne = defaultInstance.mergeFrom(message)
